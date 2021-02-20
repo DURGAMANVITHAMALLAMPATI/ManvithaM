@@ -1,0 +1,203 @@
+import React, { Component ,useState} from 'react';
+import { Container, Row, Col, Form, Button,InputGroup,FormControl,Modal,Dropdown,DropdownButton,ButtonGroup} from "react-bootstrap";
+import 'react-accessible-accordion/dist/fancy-example.css';
+
+
+
+class Task extends React.Component {
+  constructor(props) {
+    super(props);
+      this.state = {
+        sensorid:'',
+        sensorName:'',
+        motorid:'',
+        motorname:'',
+        relayname:'',
+        relayid:'',
+        module:'',
+        dropdown:'',
+        show:false,
+        show1:false,
+        show2:false,
+       
+
+     };
+  }
+Change = (event) => {
+  const {name, value} = event.target;
+  this.setState({
+      [name]: value
+  });
+  const{dropdown}=this.state;
+  if(dropdown ==="sensor"){
+        this.setState({show:true,
+          show1:false,
+          show2:false,
+        
+        
+        });
+  }
+  else if(dropdown ==="motor"){
+    this.setState({show1:true,
+      show:false,
+      show2:false,
+    });
+}
+else if(dropdown ==="relay"){
+  this.setState({show2:true,
+    show1:false,
+    show:false,});
+}
+};
+
+
+
+
+
+
+
+
+  componentDidMount() {
+     
+  }
+
+  componentDidUpdate() {
+     
+  }
+
+    render() {
+     const{sensorid,sensorName,motorid,motorname,relayid,relayname,module,dropdown}=this.state;
+      
+     return(
+       
+            <div >
+                <Container>
+                <div>
+                  <h1 style={{marginLeft:'40%'}}>Reast JS Task</h1>
+                      <Row>
+<Col as={Col} md="4">
+
+<Form.Group as={Col} md="6" >
+          
+          <Form.Label>Module</Form.Label>
+                    <select type="dropdown" className="form-control" name="dropdown" value={dropdown} 
+                                  onChange={this.Change}>
+                                   <option  value=""></option>  
+                           <option  value="sensor">Sensor</option>
+                           <option  value="motor">Motor</option>
+                           <option  value="Relay">Relay</option>
+  
+                                 </select>
+                                        </Form.Group>             
+
+                                        </Col>{this.state.show == true ?  <Col as={Col} md="6">
+               <div>
+                 <Form>
+               <Form.Row>
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="number" placeholder="Sensor ID" name="sensorid" value={sensorid} onChange={this.Change}></Form.Control>
+        </Form.Group>
+
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="test" placeholder="Sensor Name" name="sensorName" value={sensorName} onChange={this.Change}></Form.Control>
+        </Form.Group>
+      </Form.Row>
+      
+      </Form>
+      </div>   
+      </Col> :null}
+      </Row>  
+
+<div style={{marginLeft:'26%'}}>
+
+{this.state.show1 == true ?  <Row >
+        
+      <Col as={Col} md="6">
+               <div>
+                 <Form>
+               <Form.Row>
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="number" placeholder="Motor ID" name="motorid" value={motorid} onChange={this.Change}></Form.Control>
+        </Form.Group>
+
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="text" placeholder="Motor Name" name="motorname" value={motorname} onChange={this.Change}></Form.Control>
+        </Form.Group>
+      </Form.Row>
+      
+      </Form>
+      </div>   
+      </Col></Row> :null}
+
+      {this.state.show2 == true ?  <Row>
+      <Col as={Col} md="6">
+               <div>
+                 <Form>
+               <Form.Row>
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="number" placeholder="Relay ID" name="relayid" value={relayid} onChange={this.Change}></Form.Control>
+        </Form.Group>
+
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="text" placeholder="Relay Name" name="relayname" value={relayname} onChange={this.Change}></Form.Control>
+        </Form.Group>
+        <Form.Group as={Col} md="6" >
+          
+        <Form.Label>Module</Form.Label>
+                  <select type="dropdown" className="form-control" name="module" value={module} 
+                                onChange={this.Change}>
+                                 <option  value=""></option>  
+                         <option  value="1">1</option>
+                         <option  value="2">2</option>
+                         <option  value="3">3</option>
+                         <option  value="4">4</option>
+                         <option  value="5">5</option>
+                         <option  value="10">10</option>
+                         <option  value="15">15</option>
+                         <option  value="20">20</option>
+                         <option  value="25">25</option>
+                         <option  value="30">30</option>
+                         <option  value="31">31</option>
+                         <option  value="32">32</option>
+                        
+
+
+
+                               </select>
+                                      </Form.Group>
+      </Form.Row>
+      
+      </Form>
+      </div>   
+      </Col>
+        </Row>  :null}
+        <Form>
+          <Form.Row>
+          <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="text"  ></Form.Control>
+        </Form.Group>
+        <Form.Group as={Col} md="6" >
+          
+          <Form.Control type="text"  ></Form.Control>
+        </Form.Group>
+       
+          </Form.Row>
+        </Form>
+        </div>
+        </div>
+                </Container>
+
+              
+            </div>
+        )
+    }
+}
+
+export default Task;
