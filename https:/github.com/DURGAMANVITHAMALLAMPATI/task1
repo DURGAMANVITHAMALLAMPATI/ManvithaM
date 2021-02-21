@@ -1,5 +1,5 @@
 import React, { Component ,useState} from 'react';
-import { Container, Row, Col, Form, Button,InputGroup,FormControl,Modal,Dropdown,DropdownButton,ButtonGroup} from "react-bootstrap";
+import { Container, Row, Col, Form,Button} from "react-bootstrap";
 import 'react-accessible-accordion/dist/fancy-example.css';
 
 
@@ -16,9 +16,9 @@ class Task extends React.Component {
         relayid:'',
         module:'',
         dropdown:'',
-        show:false,
-        show1:false,
-        show2:false,
+        showsensor:false,
+        showmotor:false,
+        showrelay:false,
        
 
      };
@@ -28,29 +28,46 @@ Change = (event) => {
   this.setState({
       [name]: value
   });
+  
+}
+
+handleclick=(event)=>{
+  const {name, value} = event.target;
+  this.setState({
+      [name]: value
+  });
+
+
+}
+loading=(e)=>{
   const{dropdown}=this.state;
-  if(dropdown ==="sensor"){
-        this.setState({show:true,
-          show1:false,
-          show2:false,
+  if(dropdown =="sensor"){
+        this.setState({showsensor:true,
+          showmotor:false,
+          showrelay:false,
         
         
         });
+        console.log("showmodel-----"+this.state.dropdown);
+
   }
-  else if(dropdown ==="motor"){
-    this.setState({show1:true,
-      show:false,
-      show2:false,
+  else if(dropdown =="motor"){
+    this.setState({showmotor:true,
+      showsensor:false,
+      showrelay:false,
     });
-}
-else if(dropdown ==="relay"){
-  this.setState({show2:true,
-    show1:false,
-    show:false,});
-}
-};
+    console.log("showmodel-----"+this.state.dropdown);
 
+}
+else if(dropdown =="relay"){
+  this.setState({showrelay:true,
+    showsensor:false,
+    showmotor:false,});
+    console.log("showmodel-----"+this.state.dropdown);
 
+}
+
+}
 
 
 
@@ -81,16 +98,17 @@ else if(dropdown ==="relay"){
           
           <Form.Label>Module</Form.Label>
                     <select type="dropdown" className="form-control" name="dropdown" value={dropdown} 
-                                  onChange={this.Change}>
+                                  onChange={this.handleclick} >
                                    <option  value=""></option>  
                            <option  value="sensor">Sensor</option>
                            <option  value="motor">Motor</option>
-                           <option  value="Relay">Relay</option>
+                           <option  value="relay">Relay</option>
   
                                  </select>
-                                        </Form.Group>             
+                                        </Form.Group>        
+                                        <Button onClick={this.loading}>click me</Button>     
 
-                                        </Col>{this.state.show == true ?  <Col as={Col} md="6">
+                                        </Col>{this.state.showsensor == true ?  <Col as={Col} md="6">
                <div>
                  <Form>
                <Form.Row>
@@ -112,7 +130,7 @@ else if(dropdown ==="relay"){
 
 <div style={{marginLeft:'26%'}}>
 
-{this.state.show1 == true ?  <Row >
+{this.state.showmotor == true ?  <Row >
         
       <Col as={Col} md="6">
                <div>
@@ -133,7 +151,7 @@ else if(dropdown ==="relay"){
       </div>   
       </Col></Row> :null}
 
-      {this.state.show2 == true ?  <Row>
+      {this.state.showrelay == true ?  <Row>
       <Col as={Col} md="6">
                <div>
                  <Form>
